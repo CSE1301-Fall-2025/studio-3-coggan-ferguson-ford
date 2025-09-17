@@ -5,16 +5,36 @@ import java.util.Scanner;
 
 public class Sieve {
     public static void main(String[] args) {
+        System.out.print("Check sieve up to: ");
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
-        int[] arr = new int[n];
-        for (int i = 0; i < n; i++) {
-            arr[i] = i + 1;
+
+        boolean[] isPrime = new boolean[n + 1];
+        Arrays.fill(isPrime, true);
+
+        for (int p = 2; p <= n; p++) {
+            if (isPrime[p]) {
+                for (int i = p * p; i <= n; i += p) {
+                    isPrime[i] = false;
+                }
+            }
         }
-        int p = 2;
-        for (int i = 2 * p; i <= n; i = i + p) {
-            System.out.println(i);
+
+        int count = 0;
+
+        for (int i = 2; i <= n; i++) {
+            if (isPrime[i])
+                count++;
         }
-        System.out.println(Arrays.toString(arr));
+
+        int[] primes = new int[count];
+        int index = 0;
+
+        for (int i = 2; i <= n; i++) {
+            if (isPrime[i])
+                primes[index++] = i;
+        }
+
+        System.out.println(Arrays.toString(primes).replace("[", "").replace("]", ""));
     }
 }
