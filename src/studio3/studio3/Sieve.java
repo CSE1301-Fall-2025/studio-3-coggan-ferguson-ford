@@ -13,8 +13,10 @@ public class Sieve {
         Arrays.fill(isPrime, true);
 
         for (int p = 2; p <= n; p++) {
+            System.out.println("Checking " + p);
             if (isPrime[p]) {
                 for (int i = p * p; i <= n; i += p) {
+                    System.out.println("Not Prime: " + i);
                     isPrime[i] = false;
                 }
             }
